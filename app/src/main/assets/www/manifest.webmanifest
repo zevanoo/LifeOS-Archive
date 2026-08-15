@@ -1,0 +1,19 @@
+{
+  "name": "LifeOS — Pengatur Hidup Offline",
+  "short_name": "LifeOS",
+  "description": "Super app offline: catatan markdown, jurnal, tugas, keuangan, pengingat.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FDF7FF",
+  "theme_color": "#6750A4",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%236750A4'/%3E%3Cpath d='M30 24h30l16 16v36H30z' fill='%23FDF7FF'/%3E%3Cpath d='M60 24v16h16' fill='none' stroke='%23FDF7FF' stroke-width='6'/%3E%3Cpath d='M36 52h28M36 62h20M36 42h12' stroke='%23C9B7E8' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

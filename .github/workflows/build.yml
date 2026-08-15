@@ -1,0 +1,37 @@
+name: Build APK
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Android SDK licenses
+        uses: android-actions/setup-android@v3
+
+      - name: Build release APK
+        run: ./gradlew assembleRelease
+        env:
+          LIFEO_KEYSTORE_B64: ${{ secrets.LIFEO_KEYSTORE_B64 }}
+          LIFEO_STORE_PASS: ${{ secrets.LIFEO_STORE_PASS }}
+          LIFEO_KEY_ALIAS: ${{ secrets.LIFEO_KEY_ALIAS }}
+          LIFEO_KEY_PASS: ${{ secrets.LIFEO_KEY_PASS }}
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: lifeos-apk
+          path: app/build/outputs/apk/release/app-release.apk
+          if-no-files-found: error
