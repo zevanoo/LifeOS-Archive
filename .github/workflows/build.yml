@@ -21,10 +21,15 @@ jobs:
       - name: Android SDK licenses
         uses: android-actions/setup-android@v3
 
+      - name: Write keystore
+        run: |
+          echo "${{ secrets.LIFEO_KEYSTORE_B64 }}" | base64 -d > keystore.jks
+          ls -la keystore.jks
+
       - name: Build release APK
         run: ./gradlew assembleRelease
         env:
-          LIFEO_KEYSTORE_B64: ${{ secrets.LIFEO_KEYSTORE_B64 }}
+          LIFEO_KEYSTORE_FILE: keystore.jks
           LIFEO_STORE_PASS: ${{ secrets.LIFEO_STORE_PASS }}
           LIFEO_KEY_ALIAS: ${{ secrets.LIFEO_KEY_ALIAS }}
           LIFEO_KEY_PASS: ${{ secrets.LIFEO_KEY_PASS }}

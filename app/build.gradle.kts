@@ -16,11 +16,9 @@ android {
 
     signingConfigs {
         create("release") {
-            val b64 = System.getenv("LIFEO_KEYSTORE_B64")
-            if (!b64.isNullOrBlank()) {
-                val f = File(System.getenv("HOME") ?: "/tmp", "lifeos-release.jks")
-                f.writeBytes(java.util.Base64.getDecoder().decode(b64))
-                storeFile = f
+            val f = System.getenv("LIFEO_KEYSTORE_FILE")
+            if (!f.isNullOrBlank()) {
+                storeFile = file(f)
                 storePassword = System.getenv("LIFEO_STORE_PASS")
                 keyAlias = System.getenv("LIFEO_KEY_ALIAS")
                 keyPassword = System.getenv("LIFEO_KEY_PASS")
