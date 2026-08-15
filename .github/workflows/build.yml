@@ -29,7 +29,7 @@ jobs:
       - name: Build release APK
         run: ./gradlew assembleRelease
         env:
-          LIFEO_KEYSTORE_FILE: keystore.jks
+          LIFEO_KEYSTORE_FILE: ${{ github.workspace }}/keystore.jks
           LIFEO_STORE_PASS: ${{ secrets.LIFEO_STORE_PASS }}
           LIFEO_KEY_ALIAS: ${{ secrets.LIFEO_KEY_ALIAS }}
           LIFEO_KEY_PASS: ${{ secrets.LIFEO_KEY_PASS }}
