@@ -218,6 +218,36 @@ input[type=color]{width:44px;height:32px;border:none;background:none;padding:0}
 /* ---- snackbar ---- */
 #snack{position:fixed;left:16px;right:16px;bottom:calc(84px + env(safe-area-inset-bottom));background:var(--onSurface);color:var(--surface);border-radius:10px;padding:13px 16px;font-size:14px;font-weight:600;z-index:50;box-shadow:0 8px 20px var(--shadow);opacity:0;transform:translateY(16px);pointer-events:none;transition:.25s}
 #snack.show{opacity:1;transform:none}
+
+/* ---- UX: motion ---- */
+button{transition:transform .12s ease,background .18s ease}
+.btn-icon:active{transform:scale(.9)}
+.row{transition:background .18s ease,transform .12s ease}
+.row:active{background:var(--surfaceContainerHigh);transform:scale(.992)}
+.nav-item{transition:background .22s ease,color .22s ease,transform .12s ease}
+.nav-item:active{transform:scale(.94)}
+.chip{transition:background .18s ease,color .18s ease,transform .12s ease}
+.mood{transition:transform .16s cubic-bezier(.34,1.56,.64,1),background .18s ease,opacity .18s ease}
+.mood:active{transform:scale(.8)}
+.folder-card{transition:transform .14s ease,box-shadow .2s ease}
+.folder-card:active{transform:scale(.95)}
+.seg-btn{transition:background .18s ease,color .18s ease}
+#view.view-anim{animation:viewIn .2s cubic-bezier(.2,.9,.3,1)}
+@keyframes viewIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.backdrop{animation:fadeIn .16s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.fab{animation:fabIn .3s cubic-bezier(.34,1.56,.64,1)}
+@keyframes fabIn{from{opacity:0;transform:scale(.4) translateY(24px)}to{opacity:1;transform:none}}
+.sheet{box-shadow:0 -10px 34px var(--shadow)}
+
+/* ---- glassmorphism (topbar, bottom nav, sheet, fab, banner) ---- */
+@supports ((backdrop-filter:blur(16px)) and (color-mix(in srgb,red 50%,transparent))) {
+  #topbar{background:color-mix(in srgb,var(--surface) 70%,transparent);backdrop-filter:blur(22px) saturate(1.6);-webkit-backdrop-filter:blur(22px) saturate(1.6)}
+  #bottom{background:color-mix(in srgb,var(--surfaceContainer) 74%,transparent);backdrop-filter:blur(22px) saturate(1.6);-webkit-backdrop-filter:blur(22px) saturate(1.6)}
+  .sheet{background:color-mix(in srgb,var(--surfaceContainer) 84%,transparent);backdrop-filter:blur(26px) saturate(1.7);-webkit-backdrop-filter:blur(26px) saturate(1.7)}
+  .fab{background:color-mix(in srgb,var(--primaryContainer) 80%,transparent);backdrop-filter:blur(18px) saturate(1.5);-webkit-backdrop-filter:blur(18px) saturate(1.5)}
+  .banner{background:color-mix(in srgb,var(--tertiary) 86%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+}
 </style>
 </head>
 <body>

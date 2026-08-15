@@ -204,6 +204,8 @@ function applyTheme() {
   document.documentElement.dataset.mode = dark ? 'dark' : 'light';
   const mt = document.querySelector('meta[name="theme-color"]');
   if (mt) mt.setAttribute('content', p.background);
+  const b = BRIDGE();
+  if (b && b.setTheme) b.setTheme(JSON.stringify({ background: p.background, dark: dark }));
   $('#view').scrollTop = 0;
 }
 
@@ -302,6 +304,9 @@ function render() {
   else if (name === 'recap') renderRecap();
   else if (name === 'settings') renderSettings();
   else renderNotes();
+  view.classList.remove('view-anim');
+  void view.offsetWidth;
+  view.classList.add('view-anim');
   applyTheme();
 }
 

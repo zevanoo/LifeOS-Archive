@@ -6,10 +6,12 @@ import android.app.Activity;
 import android.app.AlarmManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -53,6 +55,30 @@ public class MainActivity extends Activity {
     @JavascriptInterface
     public void pushReminders(String json) {
         ReminderStore.set(this, json);
+    }
+
+    /** Web theme sync: status + navigation bar follow app palette. */
+    @JavascriptInterface
+    public void setTheme(final String json) {
+        runOnUiThread(() -> {
+            try {
+                JSONObject o = new JSONObject(json);
+                int bg = Color.parseColor(o.optString("background", "#6750A4"));
+                boolean dark = o.optBoolean("dark", false);
+                getWindow().setStatusBarColor(bg);
+                getWindow().setNavigationBarColor(bg);
+                int flags = getWindow().getDecorView().getSystemUiVisibility();
+                if (Build.VERSION.SDK_INT >= 23) {
+                    if (dark) flags &= ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+                    else flags |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+                }
+                if (Build.VERSION.SDK_INT >= 26) {
+                    if (dark) flags &= ~View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
+                    else flags |= View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
+                }
+                getWindow().getDecorView().setSystemUiVisibility(flags);
+            } catch (Exception ignored) {}
+        });
     }
 
     /** Sync native reminder state (fired flags) into the web UI. */
